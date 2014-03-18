@@ -1,0 +1,30 @@
+#!/bin/bash
+
+ver=1.4.1
+if [[ $# -eq 1 ]]; then
+    ver=$1
+fi
+nginx=$ver/build-tree/sbin/nginx
+
+$nginx -s stop
+$nginx -c $PWD/nginx.conf
+
+url_prefix="http://localhost:8080"
+
+function banner()
+{    
+    echo -e "\n------------------------------------"
+    echo $1
+}
+
+banner "Test unicode names"
+#curl "$url_prefix/hello_ngdk?person=%E7%AB%A0%E4%BA%A6%E6%98%A5"
+curl "$url_prefix/hello_ngdk?person=%E4%BA%8C%E6%B0%A7%E5%8C%96%E7%A2%B3"
+curl "$url_prefix/hello_ngdk?person=%E8%87%BA%E5%8C%97"
+
+banner "Test array elemens"
+curl "$url_prefix/list/Alice,Bob,Carla,Dorris"
+
+banner "Test subrequests"
+curl "$url_prefix/merge"
+curl "$url_prefix/merge/moon,earth"
