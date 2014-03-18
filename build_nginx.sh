@@ -1,10 +1,9 @@
 #!/bin/bash
 
+# Nginx version
 version=1.4.7
-pcre_version=8.32
-
-# Dependencies
-deps=("pcre",$pcre_version)
+# Dependencies versions
+deps=("pcre", 8.32)
 
 DEPS_LIB=""
 for ((i = 0; i < ${#deps[@]}; ++i)); do

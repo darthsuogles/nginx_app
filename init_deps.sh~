@@ -1,0 +1,12 @@
+[submodule "array-var-nginx-module"]
+	path = ext-modules/array-var-nginx-module
+	url = git://github.com/agentzh/array-var-nginx-module/
+[submodule "echo-nginx-module"]
+	path = ext-modules/echo-nginx-module
+	url =  git://github.com/agentzh/echo-nginx-module/
+[submodule "ngx_devel_kit"]
+	path = ext-modules/ngx_devel_kit
+	url = git://github.com/simpl/ngx_devel_kit/
+[submodule "set-misc-nginx-module"]
+	path = ext-modules/set-misc-nginx-module
+	url = git://github.com/agentzh/set-misc-nginx-module/
