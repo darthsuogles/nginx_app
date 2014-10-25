@@ -1,9 +1,6 @@
 #!/bin/bash
 
-ver=1.4.1
-if [[ $# -eq 1 ]]; then
-    ver=$1
-fi
+ver=${1:-1.7.6}
 nginx=$ver/build-tree/sbin/nginx
 
 $nginx -s stop

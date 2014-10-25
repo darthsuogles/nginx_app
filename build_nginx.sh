@@ -1,23 +1,31 @@
 #!/bin/bash
 
 # Nginx version
-version=1.4.7
-# Dependencies versions
-deps=("pcre", 8.32)
+version_default=1.6.2
 
+# Dependencies versions
+deps=("pcre" 8.32)
+
+# Get latest version
+version=$(curl -sL http://nginx.org/en/download.html | perl -ne 'print "$1" if /nginx-((\d+\.*)+?)\.tar\.gz/')
+if [ -z $version ]; then version=$version_default; fi
+
+# Install dependencies
 DEPS_LIB=""
-for ((i = 0; i < ${#deps[@]}; ++i)); do
-    kv=${deps[$i]}    
-    pkg=${kv%,*}
-    ver=${kv##*,}
+for ((i = 0; i < ${#deps[@]}; i += 2)); do
+    pkg=${deps[$i]}    
+    ver=${deps[$((i+1))]}
+    if [ "$pkg" == "pcre" ]; then 
+	pcre_version=$ver
+    fi
     echo "$pkg :: $ver"
     DEPS_LIB=$PWD/deps/$pkg/$ver/build-tree:$DEPS_LIB
 done
 echo "$DEPS_LIB"
 export LD_LIBRARY_PATH=$DEPS_LIB:$LD_LIBRARY_PATH
 
-#exit
-
+# In this case, the build directory must be local
+# We want to modify the code and add modules
 BASE=$PWD
 INSTALL_DIR=$BASE/$version/build-tree
 DEPS_SRC_DIR=$BASE/deps
